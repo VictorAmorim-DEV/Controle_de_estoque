@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Estoque extends Model
+class Stock extends Model
 {
     protected $table = 'tbl_produtos_em_estoque';
     protected $primaryKey = 'produto_id';
