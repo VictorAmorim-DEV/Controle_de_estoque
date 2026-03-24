@@ -1,0 +1,84 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Exception;
+use App\Models\Stock;
+
+class StockController extends Controller
+{
+    //CRUD -> Created - Read - Update - Delete
+
+    public function addStockItems(Request $request){    //Created
+    
+        try{
+            $validated = $request -> validate([
+                'product_name' => 'required|string',
+                'product_type' =>'required|string',
+                'product_quantity' => 'required|integer',
+            ]);
+
+            $addItems = Stock::created($validated);
+            return response() -> json([
+                'message'=> "Item adicionado ao estoque com sucesso",
+                'data' => $addItems,
+            ],201);
+            
+        } catch (Exception $e) {
+            return response() -> json([
+                'message'=> "Erro ao carregar a lista do estoque",
+                'error' => $e->getMessage()
+            ],500);
+        }
+    }
+//
+//
+     public function listStockItems(){    //Read
+    
+        try{
+            $itemsToStock = Stock::all();
+            return response() -> json($itemsToStock,200);
+
+        } catch (Exception $e) {
+            return response() -> json([
+                'message'=> "Erro ao carregar a lista do estoque",
+                'error' => $e->getMessage()
+            ],500);
+        }
+    }
+//
+//
+     public function updateStockItems(){    //Update
+    
+        try{
+            
+
+        } catch (Exception $e) {
+            return response() -> json([
+                'message'=> "Erro ao carregar a lista do estoque",
+                'error' => $e->getMessage()
+            ],500);
+        }
+    }
+//
+//
+    public function deleteStockItems(){    //Delete
+    
+        try{
+           
+
+        } catch (Exception $e) {
+            return response() -> json([
+                'message'=> "Erro ao carregar a lista do estoque",
+                'error' => $e->getMessage()
+            ],500);
+        }
+    }
+
+
+
+
+    
+}
