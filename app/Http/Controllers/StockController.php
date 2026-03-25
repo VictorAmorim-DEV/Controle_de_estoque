@@ -50,10 +50,28 @@ class StockController extends Controller
     }
 //
 //
-     public function updateStockItems(){    //Update
-    
+     public function updateStockItems(Request $request){    //Update
+     
         try{
-            
+            $validated = $request -> validate([
+                'product_id' => 'required|integer',
+                'product_name' => 'required|string',
+                'product_type' =>'required|string',
+                'product_quantity' => 'required|integer',
+            ]);
+
+            $itemInStock = Stock::find($validated['product_id']);
+
+            if (!$itemInStock) {
+                return response()->json(["message"=>"Item não encontrado no estoque!"],404);
+            }
+
+            $itemInStock -> update($validated);
+
+            return response() -> json([
+                'message'=> "Item atualizado com sucesso",
+                'data' => $itemInStock,
+            ],200);
 
         } catch (Exception $e) {
             return response() -> json([
