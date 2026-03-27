@@ -28,7 +28,7 @@ class StockController extends Controller
             
         } catch (Exception $e) {
             return response() -> json([
-                'message'=> "Erro ao carregar a lista do estoque",
+                'message'=> "Erro ao adicionar novo item ao estoque!",
                 'error' => $e->getMessage()
             ],500);
         }
@@ -75,28 +75,37 @@ class StockController extends Controller
 
         } catch (Exception $e) {
             return response() -> json([
-                'message'=> "Erro ao carregar a lista do estoque",
+                'message'=> "Erro ao tentar alterar o item!",
                 'error' => $e->getMessage()
             ],500);
         }
     }
 //
 //
-    public function deleteStockItems(){    //Delete
+    public function deleteStockItems($id){    //Delete
     
         try{
+            $itemToDelete = Stock::find($id);
+
+            if (!$itemToDelete) {
+                return response()->json(["message"=>"Item não encontrado no estoque!"],404);
+            }
+
+            $itemToDelete -> delete();
+
+            return response() -> json([
+                'message'=> "Item deletado com sucesso",
+                'data' => $itemToDelete,
+            ],200);
            
 
         } catch (Exception $e) {
             return response() -> json([
-                'message'=> "Erro ao carregar a lista do estoque",
+                'message'=> "Erro inesperado ao tentar deletar o item do estoque!",
                 'error' => $e->getMessage()
             ],500);
         }
     }
-
-
-
 
     
 }
