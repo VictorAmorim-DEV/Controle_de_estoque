@@ -20,7 +20,7 @@ class StockController extends Controller
                 'product_quantity' => 'required|integer',
             ]);
 
-            $addItems = Stock::created($validated);
+            $addItems = Stock::create($validated);
             return response() -> json([
                 'message'=> "Item adicionado ao estoque com sucesso",
                 'data' => $addItems,
