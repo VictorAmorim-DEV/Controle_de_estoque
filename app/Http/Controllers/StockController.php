@@ -82,9 +82,10 @@ class StockController extends Controller
     }
 //
 //
-    public function deleteStockItems($id){    //Delete
+    public function deleteStockItems(Request $request){    //Delete
     
         try{
+            $id = $request->id;
             $itemToDelete = Stock::find($id);
 
             if (!$itemToDelete) {

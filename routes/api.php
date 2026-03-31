@@ -11,4 +11,4 @@ Route::get('/user', function (Request $request) {
 Route::post('addStockItems', [StockController::class, 'addStockItems'])->name('addStockItems');
 Route::get('listStockItems', [StockController::class, 'listStockItems'])->name('listStockItems');
 Route::put('updateStockItems', [StockController::class, 'updateStockItems'])->name('updateStockItems');
-Route::delete('deleteStockItems/{id}', [StockController::class, 'deleteStockItems'])->name('deleteStockItems');
+Route::delete('deleteStockItems', [StockController::class, 'deleteStockItems'])->name('deleteStockItems');
