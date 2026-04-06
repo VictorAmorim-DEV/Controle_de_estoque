@@ -21,28 +21,28 @@ class SuppliersController extends Controller
             $request->merge(['suppliers_contact' => $phoneOnlyNumbers]);
 
             $validated = $request -> validate([
-                'suppliers_name' => 'required|string',
-                'suppliers_contact' =>'required|regex:/^[0-9]{10,11}$/|unique:suppliers,suppliers_contact',
-                'suppliers_email' => 'required|email|unique:suppliers,suppliers_email',
+                'suppliers_name'=>'required|string',
+                'suppliers_contact'=>'required|regex:/^[0-9]{10,11}$/|unique:suppliers,suppliers_contact',
+                'suppliers_email'=>'required|email|unique:suppliers,suppliers_email',
             ],[
-                'suppliers_contact.regex' => 'O número de telefone é inválido. Certifique-se de está digitando corretamente',
-                'suppliers_contact.unique' => 'Esse número de telefone já foi cadastrado, digite outro número válido',
-                'suppliers_contact.require' => 'Campo obrigatório.',
+                'suppliers_contact.regex'=>'O número de telefone é inválido. Certifique-se de está digitando corretamente',
+                'suppliers_contact.unique'=>'Esse número de telefone já foi cadastrado, digite outro número válido',
+                'suppliers_contact.require'=>'Campo obrigatório.',
 
-                'suppliers_email.email' => 'Email inválido. Certifique-se de está digitando o email corretamente.',
-                'suppliers_email.unique' => 'Esse email já foi cadastrado, digite outro email válido',
-                'suppliers_email.require' => 'Campo obrigatório.',
+                'suppliers_email.email'=>'Email inválido. Certifique-se de está digitando o email corretamente.',
+                'suppliers_email.unique'=>'Esse email já foi cadastrado, digite outro email válido',
+                'suppliers_email.require'=>'Campo obrigatório.',
             ]);
 
             $addSuppliers = Suppliers::create($validated);
             return response() -> json([
-                'message'=> "Fornecedor adicionado com sucesso",
+                'message'=>"Fornecedor adicionado com sucesso",
                 'data' => $addSuppliers,
             ],201);
             
         } catch (Exception $e) {
             return response() -> json([
-                'message'=> "Erro inesperado ao registrar fornecedor!",
+                'message'=>"Erro inesperado ao registrar fornecedor!",
                 'error' => $e->getMessage()
             ],500);
         }
@@ -57,8 +57,8 @@ class SuppliersController extends Controller
 
         } catch (Exception $e) {
             return response() -> json([
-                'message'=> "Erro ao carregar a lista de fornecedores",
-                'error' => $e->getMessage()
+                'message'=>"Erro ao carregar a lista de fornecedores",
+                'error'=>$e->getMessage()
             ],500);
         }
     }
@@ -76,16 +76,16 @@ class SuppliersController extends Controller
             $id = $request->suppliers_id;
 
             $validated = $request -> validate([
-                'suppliers_id' => 'required|integer',
-                'suppliers_name' => 'required|string',
-                'suppliers_contact' =>"required|regex:/^[0-9]{10,11}$/|unique:suppliers,suppliers_contact,{id},suppliers_id",
-                'suppliers_email' => "required|email|unique:suppliers,suppliers_email,{id},suppliers_id",
+                'suppliers_id'=>'required|integer',
+                'suppliers_name'=>'required|string',
+                'suppliers_contact'=>"required|regex:/^[0-9]{10,11}$/|unique:suppliers,suppliers_contact,{$id},suppliers_id",
+                'suppliers_email'=>"required|email|unique:suppliers,suppliers_email,{$id},suppliers_id",
             ],[
-                'suppliers_contact.regex' => 'O número de telefone é inválido',
-                'suppliers_contact.unique' => 'Esse número de telefone pertence a outro fornecedor. Digite outro número válido',
+                'suppliers_contact.regex'=>'O número de telefone é inválido',
+                'suppliers_contact.unique'=>'Esse número de telefone pertence a outro fornecedor. Digite outro número válido',
 
-                'suppliers_email.email' => 'Email inválido.',
-                'suppliers_email.unique' => 'Esse email pertence a outro fornecedor. Digite outro email válido',
+                'suppliers_email.email'=>'Email inválido.',
+                'suppliers_email.unique'=>'Esse email pertence a outro fornecedor. Digite outro email válido',
             ]);
 
             $updateSuppliers = Suppliers::find($id);
@@ -94,17 +94,17 @@ class SuppliersController extends Controller
                 return response()->json(["message"=>"Fornecedor não registrado!"],404);
             }
 
-            $updateSuppliers -> update($validated);
+            $updateSuppliers->update($validated);
 
-            return response() -> json([
-                'message'=> "Dados do fornecedor atualizados com sucesso",
-                'data' => $updateSuppliers,
+            return response()->json([
+                'message'=>"Dados do fornecedor atualizados com sucesso",
+                'data'=>$updateSuppliers,
             ],200);
 
         } catch (Exception $e) {
-            return response() -> json([
-                'message'=> "Erro inesperado ao tentar alterar dados do fornecedor!",
-                'error' => $e->getMessage()
+            return response()->json([
+                'message'=>"Erro inesperado ao tentar alterar dados do fornecedor!",
+                'error'=>$e->getMessage()
             ],500);
         }
     }
@@ -113,7 +113,7 @@ class SuppliersController extends Controller
     public function deleteSuppliers(Request $request){    //Delete
     
         try{
-            $id = $request->id;
+            $id = $request->suppliers_id;
             $deleteSuppliers = Suppliers::find($id);
 
             if (!$deleteSuppliers) {
@@ -123,15 +123,15 @@ class SuppliersController extends Controller
             $deleteSuppliers -> delete();
 
             return response() -> json([
-                'message'=> "Fornecedor deletado com sucesso",
-                'data' => $deleteSuppliers,
+                'message'=>"Fornecedor deletado com sucesso",
+                'data'=>$deleteSuppliers,
             ],200);
            
 
         } catch (Exception $e) {
-            return response() -> json([
-                'message'=> "Erro inesperado ao tentar deletar os dados do fornecedor!",
-                'error' => $e->getMessage()
+            return response()->json([
+                'message'=>"Erro inesperado ao tentar deletar os dados do fornecedor!",
+                'error'=>$e->getMessage()
             ],500);
         }
     }
