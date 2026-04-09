@@ -83,8 +83,8 @@ class StockController extends Controller
     public function deleteStockItems(Request $request){    //Delete
     
         try{
-            $stock_entry_id = $request->id;
-            $itemToDelete = Stock::find($stock_entry_id);
+            $id = $request->stock_entry_id;
+            $itemToDelete = Stock::find($id);
 
             if (!$itemToDelete) {
                 return response()->json(["message"=>"Item não encontrado no estoque!"],404);
