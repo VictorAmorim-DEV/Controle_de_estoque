@@ -15,8 +15,7 @@ class StockController extends Controller
     
         try{
             $validated = $request -> validate([
-                'product_name' => 'required|string',
-                'product_type' =>'required|string',
+                'product_id'=>'required|integer|exists:products,product_id',
                 'product_quantity' => 'required|integer',
             ]);
 
@@ -28,7 +27,7 @@ class StockController extends Controller
             
         } catch (Exception $e) {
             return response() -> json([
-                'message'=> "Erro ao adicionar novo item ao estoque!",
+                'message'=> "Erro ao adicionar o item ao estoque!",
                 'error' => $e->getMessage()
             ],500);
         }
@@ -38,7 +37,7 @@ class StockController extends Controller
      public function listStockItems(){    //Read
     
         try{
-            $itemsToStock = Stock::all();
+            $itemsToStock = Stock::with('product.suppliers')->get();
             return response() -> json($itemsToStock,200);
 
         } catch (Exception $e) {
@@ -54,13 +53,12 @@ class StockController extends Controller
      
         try{
             $validated = $request -> validate([
-                'product_id' => 'required|integer',
-                'product_name' => 'required|string',
-                'product_type' =>'required|string',
+                'stock_entry_id'=>'required|integer|exists:products_in_stock,stock_entry_id',
+                'product_id'=>'required|integer|exists:products,product_id',
                 'product_quantity' => 'required|integer',
             ]);
 
-            $itemInStock = Stock::find($validated['product_id']);
+            $itemInStock = Stock::find($validated['stock_entry_id']);
 
             if (!$itemInStock) {
                 return response()->json(["message"=>"Item não encontrado no estoque!"],404);
@@ -69,7 +67,7 @@ class StockController extends Controller
             $itemInStock -> update($validated);
 
             return response() -> json([
-                'message'=> "Item atualizado com sucesso",
+                'message'=> "Estoque atualizado com sucesso",
                 'data' => $itemInStock,
             ],200);
 
@@ -85,8 +83,8 @@ class StockController extends Controller
     public function deleteStockItems(Request $request){    //Delete
     
         try{
-            $id = $request->id;
-            $itemToDelete = Stock::find($id);
+            $stock_entry_id = $request->id;
+            $itemToDelete = Stock::find($stock_entry_id);
 
             if (!$itemToDelete) {
                 return response()->json(["message"=>"Item não encontrado no estoque!"],404);
