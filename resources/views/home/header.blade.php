@@ -4,10 +4,10 @@
                     <use xlink:href="#bootstrap"></use>
                 </svg> </a>
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="#" class="nav-link px-2 text-white">Inicio</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Estoque</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Produtos</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Fornecedores</a></li>
+                <li><a href="/" class="nav-link px-2 text-white">Inicio</a></li>
+                <li><a href="/stock" class="nav-link px-2 text-white">Estoque</a></li>
+                <li><a href="/produtos" class="nav-link px-2 text-white">Produtos</a></li>
+                <li><a href="/suppliers" class="nav-link px-2 text-white">Fornecedores</a></li>
             </ul>
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search"> <input type="search" class="form-control" placeholder="Search..." aria-label="Search"> </form>
             <!--Coloca a imagem do bonequinho padrão como imagem de login -->
@@ -18,9 +18,9 @@
                 </svg>
             </div></a>
                 <ul class="dropdown-menu text-small">
-                    <li><a class="dropdown-item" href="#">Estoque</a></li>
-                    <li><a class="dropdown-item" href="#">Produtos</a></li>
-                    <li><a class="dropdown-item" href="#">Fornecedores</a></li>
+                    <li><a class="dropdown-item" href="/stock">Estoque</a></li>
+                    <li><a class="dropdown-item" href="/produtos">Produtos</a></li>
+                    <li><a class="dropdown-item" href="/suppliers">Fornecedores</a></li>
                     <li>
                         <hr class="dropdown-divider">
                     </li>
