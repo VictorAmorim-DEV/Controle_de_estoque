@@ -1,3 +1,4 @@
+<div class="container mt-5 py-4 shadow-sm border rounded col-md-8">
 <table class="table">
   <thead>
     <tr>
@@ -36,3 +37,4 @@
     -->
   </tbody>
 </table>
+</div>

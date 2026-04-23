@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Suppliers;
 use Illuminate\Support\Facades\Route;
 
 /*Route::get('/', function () {
@@ -13,6 +14,11 @@ Route::get('/', function () {
 
 Route::get('produtos', function () {
     return view('products.products');
+});
+
+Route::get('produtos/adicionar', function () {
+    $suppliers=Suppliers::all();
+    return view('products.add_product', compact('suppliers'));
 });
 
 Route::get('stock', function () {
